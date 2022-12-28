@@ -28,12 +28,37 @@ const useMarvelService = () => {
                 : "There is no description for this charater",
             thumbnail: char.thumbnail.path + "." + char.thumbnail.extension,
             homapage: char.urls[0].url,
-            Wiki: char.urls[1].url,
+            wiki: char.urls[1].url,
             comics: char.comics.items,
         };
     };
 
-    return { loading, error, getAllCharacters, getCharacter, clearError };
+    const getAllComics = async (offset = 0) => {
+        const res = await request(
+            `${_apiBase}comics?orderBy=issueNumber&limit=8&offset=${offset}&${_apiKey}`
+        );
+        return res.data.results.map(_transformComics);
+    };
+
+    const _transformComics = (comics) => {
+        return {
+            id: comics.id,
+            title: comics.title,
+            thumbnail: comics.thumbnail.path + "." + comics.thumbnail.extension,
+            price: comics.prices[0].price
+                ? `${comics.prices[0].price}$`
+                : "not available",
+        };
+    };
+
+    return {
+        loading,
+        error,
+        getAllCharacters,
+        getCharacter,
+        getAllComics,
+        clearError,
+    };
 };
 
 export default useMarvelService;
