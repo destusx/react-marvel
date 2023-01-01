@@ -58,7 +58,6 @@ const RandomChar = () => {
 
 const View = ({ char }) => {
     const { name, description, thumbnail, homapage, wiki } = char;
-    console.log(char);
     let imgStyle = { objectFit: "cover" };
 
     if (
