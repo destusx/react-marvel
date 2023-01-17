@@ -1,12 +1,17 @@
-import AppHeader from "../appHeader/AppHeader";
-import ComicsList from "../comicsList/ComicsList";
-import AppBanner from "../appBanner/AppBanner";
+import { Helmet } from 'react-helmet';
 
-import React from "react";
+import ComicsList from '../comicsList/ComicsList';
+import AppBanner from '../appBanner/AppBanner';
+
+import React from 'react';
 
 const ComicsPage = () => {
     return (
         <>
+            <Helmet>
+                <meta name="description" content="Page with list of out comics" />
+                <title>Comics Page</title>
+            </Helmet>
             <AppBanner />
             <ComicsList />
         </>

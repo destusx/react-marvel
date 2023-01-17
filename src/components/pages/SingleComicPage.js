@@ -1,11 +1,12 @@
-import { useParams, Link } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { useParams, Link } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { Helmet } from 'react-helmet';
 
-import useMarvelService from "../../services/MarvelService";
-import Spinner from "../spinner/Spinner";
-import ErrorMessage from "../errorMessage/ErrorMessage";
-import AppBanner from "../appBanner/AppBanner";
-import "./singleComicPage.scss";
+import useMarvelService from '../../services/MarvelService';
+import Spinner from '../spinner/Spinner';
+import ErrorMessage from '../errorMessage/ErrorMessage';
+import AppBanner from '../appBanner/AppBanner';
+import './singleComicPage.scss';
 
 const SingleComicPage = () => {
     const { comicId } = useParams();
@@ -27,9 +28,7 @@ const SingleComicPage = () => {
 
     const errorMessage = error ? <ErrorMessage /> : null;
     const spinner = loading ? <Spinner /> : null;
-    const content = !(loading || error || !comic) ? (
-        <View comic={comic} />
-    ) : null;
+    const content = !(loading || error || !comic) ? <View comic={comic} /> : null;
 
     return (
         <>
@@ -46,6 +45,10 @@ const View = ({ comic }) => {
 
     return (
         <div className="single-comic">
+            <Helmet>
+                <title>{title}</title>
+                <meta name="description" content={`${title} comic page`} />
+            </Helmet>
             <img src={thumbnail} alt={title} className="single-comic__img" />
             <div className="single-comic__info">
                 <h2 className="single-comic__name">{title}</h2>
