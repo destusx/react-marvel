@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useMemo } from 'react';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 
 import Spinner from '../spinner/Spinner';
@@ -104,6 +104,10 @@ const CharList = (props) => {
         );
     }
 
+    const elements = useMemo(() => {
+        return setContent(process, () => renderItems(charList), newItemLoading);
+    }, [process]);
+
     // const items = renderItems(charList);
 
     // const errorMessage = error ? <ErrorMessage /> : null;
@@ -114,7 +118,7 @@ const CharList = (props) => {
             {/* {errorMessage}
             {spinner}
             {items} */}
-            {setContent(process, () => renderItems(charList), newItemLoading)}
+            {elements}
             <button
                 className="button button__main button__long"
                 disabled={newItemLoading}
